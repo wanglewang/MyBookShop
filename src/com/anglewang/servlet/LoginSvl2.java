@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.anglewang.entity.User;
 import com.anglewang.exception.InputEmptyException;
-import com.anglewang.service.UserBiz;
+import com.anglewang.service.UserService;
 import com.anglewang.util.Log;
 
 /**
@@ -43,7 +43,7 @@ public class LoginSvl2 extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String uname = request.getParameter("uname");
 		String pwd = request.getParameter("pwd");
-		UserBiz biz = new UserBiz();
+		UserService biz = new UserService();
 		PrintWriter out = response.getWriter();
 		try {
 			User user = biz.login(uname, pwd);

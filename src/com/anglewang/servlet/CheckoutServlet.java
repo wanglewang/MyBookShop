@@ -11,20 +11,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.anglewang.entity.Book;
-import com.anglewang.service.BookBiz;
+import com.anglewang.service.BookService;
 import com.anglewang.util.Log;
 
 /**
  * Servlet implementation class CheckoutSvl
  */
 @WebServlet("/user/CheckoutSvl")
-public class CheckoutSvl extends HttpServlet {
+public class CheckoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CheckoutSvl() {
+    public CheckoutServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -42,7 +42,7 @@ public class CheckoutSvl extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Map<String,Integer> shopCar = (Map<String,Integer>)request.getSession().getAttribute("shopCar");
-		BookBiz biz = new BookBiz();
+		BookService biz = new BookService();
 		try {
 			List<Book> books = biz.getBookList(shopCar.keySet());			
 			for(Book bk : books) {

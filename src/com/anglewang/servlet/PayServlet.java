@@ -12,21 +12,21 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.anglewang.entity.Book;
 import com.anglewang.entity.User;
-import com.anglewang.service.BookBiz;
-import com.anglewang.service.UserBiz;
+import com.anglewang.service.BookService;
+import com.anglewang.service.UserService;
 import com.anglewang.util.Log;
 
 /**
  * Servlet implementation class PaySvl
  */
 @WebServlet("/user/PaySvl")
-public class PaySvl extends HttpServlet {
+public class PayServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PaySvl() {
+    public PayServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,7 +41,7 @@ public class PaySvl extends HttpServlet {
 		//无需接收参数		
 		User user = (User)request.getSession().getAttribute("user");
 		Map<String,Integer> shopCar = (Map<String,Integer>)request.getSession().getAttribute("shopCar");
-		BookBiz bookBiz = new BookBiz();		
+		BookService bookBiz = new BookService();		
 		try {
 			//提取图书的价格、折扣等信息
 			List<Book> books = bookBiz.getBookList(shopCar.keySet());			
@@ -51,7 +51,7 @@ public class PaySvl extends HttpServlet {
 				bk.setBuynum(shopCar.get(bk.getIsbn()));     
 				allMoney += bk.getPrice() * bk.getDiscount() * bk.getBuynum() ;
 			}
-			UserBiz userBiz = new UserBiz();
+			UserService userBiz = new UserService();
 			userBiz.payMoney(user.getUname(), allMoney, books);
 			//付款成功，更新会话中的用户余额
 			user.setAccount(user.getAccount()-allMoney);

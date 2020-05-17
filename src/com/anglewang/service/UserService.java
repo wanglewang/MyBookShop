@@ -8,7 +8,7 @@ import com.anglewang.entity.User;
 import com.anglewang.exception.InputEmptyException;
 import com.anglewang.exception.UserVoilateExceptoin;
 
-public class UserBiz {	
+public class UserService {	
 	/**
 	 * Í¼Êé¹ºÂò
 	 * @param uname

@@ -7,7 +7,7 @@ import com.anglewang.dao.BookDao;
 import com.anglewang.entity.Book;
 import com.anglewang.exception.InputEmptyException;
 
-public class BookBiz {
+public class BookService {
 	
 	/**
 	 * 提取购物车中的图书信息

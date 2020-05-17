@@ -12,20 +12,20 @@ import javax.servlet.http.HttpServletResponse;
 import com.anglewang.constant.IRole;
 import com.anglewang.entity.User;
 import com.anglewang.exception.InputEmptyException;
-import com.anglewang.service.UserBiz;
+import com.anglewang.service.UserService;
 import com.anglewang.util.Log;
 
 /**
  * Servlet implementation class LoginSvl
  */
 @WebServlet(urlPatterns="/LoginSvl",loadOnStartup=1)
-public class LoginSvl extends HttpServlet {
+public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginSvl() {
+    public LoginServlet() {
         super();
         Log.logger.info("LoginSvl≥ı ºªØ..............");
     }
@@ -47,7 +47,7 @@ public class LoginSvl extends HttpServlet {
 		// TODO Auto-generated method stub
 		String uname = request.getParameter("uname");
 		String pwd = request.getParameter("pwd");
-		UserBiz biz = new UserBiz();
+		UserService biz = new UserService();
 		try {
 			User user = biz.login(uname, pwd);
 			if(user != null) {

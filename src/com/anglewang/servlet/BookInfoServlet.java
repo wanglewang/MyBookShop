@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.anglewang.entity.Book;
-import com.anglewang.service.BookBiz;
+import com.anglewang.service.BookService;
 import com.anglewang.util.Log;
 
 /**
  * Servlet implementation class BookInfoSvl
  */
 @WebServlet("/BookInfoSvl")
-public class BookInfoSvl extends HttpServlet {
+public class BookInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BookInfoSvl() {
+    public BookInfoServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,7 +30,7 @@ public class BookInfoSvl extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String isbn = request.getParameter("isbn");
-		BookBiz biz = new BookBiz();
+		BookService biz = new BookService();
 		try {
 			Book book = biz.getBookInfo(isbn);
 			request.setAttribute("book", book);

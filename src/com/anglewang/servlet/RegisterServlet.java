@@ -12,20 +12,20 @@ import javax.servlet.http.HttpServletResponse;
 import com.anglewang.constant.IRole;
 import com.anglewang.entity.User;
 import com.anglewang.exception.UserVoilateExceptoin;
-import com.anglewang.service.UserBiz;
+import com.anglewang.service.UserService;
 import com.anglewang.util.Log;
 
 /**
  * Servlet implementation class RegistSvl
  */
 @WebServlet("/RegistSvl")
-public class RegistSvl extends HttpServlet {
+public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegistSvl() {
+    public RegisterServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -47,7 +47,7 @@ public class RegistSvl extends HttpServlet {
 		user.setTel(request.getParameter("tel"));
 		user.setRole(IRole.CUSER);   //所有注册的都是普通用户
 		user.setRtime(new Date());
-		UserBiz biz = new UserBiz();
+		UserService biz = new UserService();
 		try {
 			biz.regist(user);
 			//注册成功，转到登录页

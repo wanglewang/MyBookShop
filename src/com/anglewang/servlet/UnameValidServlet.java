@@ -10,19 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.anglewang.exception.InputEmptyException;
-import com.anglewang.service.UserBiz;
+import com.anglewang.service.UserService;
 
 /**
  * Servlet implementation class UnameValidSvl
  */
 @WebServlet("/UnameValidSvl")
-public class UnameValidSvl extends HttpServlet {
+public class UnameValidServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UnameValidSvl() {
+    public UnameValidServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,7 +34,7 @@ public class UnameValidSvl extends HttpServlet {
 			  throws ServletException, IOException {
 		String uname = request.getParameter("uname");
 		PrintWriter out = response.getWriter();
-		UserBiz biz = new UserBiz();
+		UserService biz = new UserService();
 		try {
 			boolean bRet = biz.validUname(uname);	
 			if(bRet) {
