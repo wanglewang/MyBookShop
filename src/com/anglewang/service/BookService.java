@@ -15,16 +15,16 @@ public class BookService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<Book> getBookList(Set<String> isbns) throws Exception {
+	public List<Book> getBookList(Set<String> bookIdSet) throws Exception {
 		List<Book> books = null;
 		
-		if(isbns == null) {
-			throw new Exception("isbns入参不能为空");
+		if(bookIdSet == null) {
+			throw new Exception("bookIdSet入参不能为空");
 		}	
-		if(isbns.size() >0) {
+		if(bookIdSet.size() >0) {
 			BookDao dao = new BookDao();
 			try {
-				books = dao.getBookList(isbns);	
+				books = dao.getBookList(bookIdSet);	
 			} finally {
 				dao.closeConnection();
 			}	
@@ -39,13 +39,13 @@ public class BookService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Book getBookInfo(String isbn)throws Exception {
-		if(isbn==null) {
-			throw new InputEmptyException("入参isbn不能为空");
+	public Book getBookInfo(String bookId)throws Exception {
+		if(bookId==null) {
+			throw new InputEmptyException("入参bookId不能为空");
 		}
 		BookDao dao = new BookDao();
 		try {
-			return dao.getBookInfo(isbn);	
+			return dao.getBookInfo(bookId);	
 		} finally {
 			dao.closeConnection();
 		}		

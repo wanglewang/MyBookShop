@@ -1,45 +1,36 @@
 package com.anglewang.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Book {
-	private String isbn;
-	private String cid;
-	private String bname;
-	private String author;
-	private String press;
-	private Date   pdate;
-	private String pic;
-	private String   info;
-	private double   discount;
-	private double   price;
-	private int    num;                   //库存数量
-	private int    buynum;                //图书购买数量（数据库没有这个字段）	
+public class Book implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	
+	private String bookId;			//书籍ID
+	private String bookName;		//书籍名称
+	private String author;			//书籍作者
+	private String press;			//出版社
+	private Date   publishDate;		//出版日期
+	private String cover;			//封面
+	private String information;		//简介
+	private String categoryId;		//类别ID
+	private int    stock;           //库存数量
+	private double price;			//价格
+	private double discount;		//折扣
+	private int    purchaseQuantity;//图书购买数量（数据库没有这个字段）
 	
-	public int getBuynum() {
-		return buynum;
+	public String getBookId() {
+		return bookId;
 	}
-	public void setBuynum(int buynum) {
-		this.buynum = buynum;
+	public void setBookId(String bookId) {
+		this.bookId = bookId;
 	}
-	public String getIsbn() {
-		return isbn;
+	public String getBookName() {
+		return bookName;
 	}
-	public void setIsbn(String isbn) {
-		this.isbn = isbn;
-	}
-	public String getCid() {
-		return cid;
-	}
-	public void setCid(String cid) {
-		this.cid = cid;
-	}
-	public String getBname() {
-		return bname;
-	}
-	public void setBname(String bname) {
-		this.bname = bname;
+	public void setBookName(String bookName) {
+		this.bookName = bookName;
 	}
 	public String getAuthor() {
 		return author;
@@ -53,29 +44,35 @@ public class Book {
 	public void setPress(String press) {
 		this.press = press;
 	}
-	public Date getPdate() {
-		return pdate;
+	public Date getPublishDate() {
+		return publishDate;
 	}
-	public void setPdate(Date pdate) {
-		this.pdate = pdate;
+	public void setPublishDate(Date publishDate) {
+		this.publishDate = publishDate;
 	}
-	public String getPic() {
-		return pic;
+	public String getCover() {
+		return cover;
 	}
-	public void setPic(String pic) {
-		this.pic = pic;
+	public void setCover(String cover) {
+		this.cover = cover;
 	}
-	public String getInfo() {
-		return info;
+	public String getInformation() {
+		return information;
 	}
-	public void setInfo(String info) {
-		this.info = info;
+	public void setInformation(String information) {
+		this.information = information;
 	}
-	public double getDiscount() {
-		return discount;
+	public String getCategoryId() {
+		return categoryId;
 	}
-	public void setDiscount(double discount) {
-		this.discount = discount;
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+	}
+	public int getStock() {
+		return stock;
+	}
+	public void setStock(int stock) {
+		this.stock = stock;
 	}
 	public double getPrice() {
 		return price;
@@ -83,10 +80,18 @@ public class Book {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	public int getNum() {
-		return num;
+	public double getDiscount() {
+		return discount;
 	}
-	public void setNum(int num) {
-		this.num = num;
+	public void setDiscount(double discount) {
+		this.discount = discount;
 	}
+	public int getPurchaseQuantity() {
+		return purchaseQuantity;
+	}
+	public void setPurchaseQuantity(int purchaseQuantity) {
+		this.purchaseQuantity = purchaseQuantity;
+	}
+
+	
 }

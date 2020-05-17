@@ -59,7 +59,9 @@ public abstract class BaseDao {
 			Log.logger.info(Thread.currentThread().getId() + ",回滚事务");
 		}
 	}
-	
+	/**
+	 * 关闭连接
+	 */
 	public void closeConnection() {
 		if(conn != null) {
 			try {

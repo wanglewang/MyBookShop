@@ -16,66 +16,19 @@ public class UserDao extends BaseDao{
 	 * @param account  正数表示充值，负数表示扣款
 	 * @throws Exception
 	 */
-	public int updateUserAccount(String uname,double account) throws Exception{
+	public int updateUserAccount(String userName,double balance) throws Exception{
 		int iRet;
 		
-		String sql = "update tuser set account=account+? where uname=?";
+		String sql = "update user set balance=balance+? where user_name=?";
 		this.openConnection();
 		PreparedStatement ps = this.conn.prepareStatement(sql);
-		ps.setDouble(1,account);
-		ps.setString(2,uname);
+		ps.setDouble(1,balance);
+		ps.setString(2,userName);
 		iRet = ps.executeUpdate();
 		ps.close();
 		
 		return iRet;
 	}
-	
-	/**
-	 * 生成新订单
-	 * @param uname
-	 * @param allMoney
-	 * @return    返回订单编号
-	 * @throws Exception
-	 */
-	public String addOrder(String uname,double allMoney) throws Exception{
-		//获得订单号
-		String oid = OrderUtil.createNewOrderNo();
-		String sql = "insert into torder values(?,?,?,?)";
-		this.openConnection();
-		PreparedStatement ps = this.conn.prepareStatement(sql);
-		ps.setString(1, oid);
-		ps.setString(2,uname);
-		ps.setDouble(3,allMoney);
-		ps.setTimestamp(4,new java.sql.Timestamp(new Date().getTime()));
-		ps.executeUpdate();
-		ps.close();
-		
-		return oid;
-	}
-	
-	/**
-	 * 添加一条订单明细
-	 * @param orderNo
-	 * @param book
-	 * @throws Exception
-	 */
-	public void addOrderDetail(String orderNo,Book book) throws Exception{		
-		//添加订单明细
-		String sql = "insert into TOrderDetail(oid,isbn,buyNum,rprice) values(?,?,?,?)";
-		this.openConnection();
-		PreparedStatement ps = this.conn.prepareStatement(sql);
-		ps.setString(1,orderNo);
-		ps.setString(2,book.getIsbn());
-		ps.setInt(3,book.getBuynum());
-		ps.setDouble(4,book.getDiscount()*book.getPrice());
-		ps.executeUpdate();
-		ps.close();			
-		//更新图书库存(在一个事务中，数据库的连接必须一致)
-		BookDao bookDao = new BookDao();
-		bookDao.setConn(this.getConn());  //把当前对象的数据库连接赋值给bookDao
-		bookDao.updateBookNum(book.getIsbn(),-book.getBuynum());
-	}
-	
 
 	/**
 	 * 校验用户名是否冲突
@@ -83,13 +36,13 @@ public class UserDao extends BaseDao{
 	 * @return  true 表示用户名冲突     false不冲突
 	 * @throws Exception
 	 */
-	public boolean validUname(String uname) throws Exception{
+	public boolean validUname(String userName) throws Exception{
 		boolean bRet = false;
 		
-		String sql = "select uname from tuser where uname=?";
+		String sql = "select user_name from user where user_name=?";
 		this.openConnection();
 		PreparedStatement ps = this.conn.prepareStatement(sql);
-		ps.setString(1,uname);
+		ps.setString(1,userName);
 		ResultSet rs = ps.executeQuery();
 		while(rs.next()) {
 		   bRet = true;	
@@ -108,34 +61,33 @@ public class UserDao extends BaseDao{
 	 * @return      返回登录成功的用户对象
 	 * @throws Exception
 	 */
-	public User login(String uname , String pwd) throws Exception {
+	public User login(String userName , String pwd) throws Exception {
 		User user = null;
 		
 		//创建登录sql
-		String sql = "select * from tuser where uname=? and pwd=?";
+		String sql = "select * from user where user_name=? and pwd=?";
 		//打开数据库
 		this.openConnection();
 		
 		//PreparedStatement用于执行sql语句
 		PreparedStatement ps = conn.prepareStatement(sql);
-		ps.setString(1, uname);
+		ps.setString(1, userName);
 		ps.setString(2, pwd);
 		//返回结果集
 		ResultSet rs = ps.executeQuery();
 		while(rs.next()) {
 			user = new User();
-			user.setUname(uname);
+			user.setUserName(userName);
 			user.setPwd(pwd);
 			user.setRole(rs.getInt("role"));
-			user.setTel(rs.getString("tel"));
-			user.setRtime(rs.getTimestamp("rtime"));
-			user.setAccount(rs.getDouble("account"));
+			user.setPhone(rs.getString("phone"));
+			user.setRegisterTime(rs.getTimestamp("register_time"));
+			user.setBalance(rs.getDouble("balance"));
 			break;
 		}
 		rs.close();
 		ps.close();
 		
-				
 		return user;
 	}
 	
@@ -145,35 +97,36 @@ public class UserDao extends BaseDao{
 	 * @throws Exception
 	 */
 	public void regist(User user) throws Exception {
-		String sql="insert into tuser values(?,?,?,?,?)";
+		String sql="insert into user values(?,?,?,?,?,?)";
 		this.openConnection();
 		PreparedStatement ps = this.conn.prepareStatement(sql);
-		ps.setString(1,user.getUname());
+		ps.setString(1,user.getUserName());
 		ps.setString(2, user.getPwd());
 		ps.setInt(3,user.getRole());
-		ps.setString(4,user.getTel());
-		if(user.getRtime() != null) {
-			ps.setTimestamp(5,new java.sql.Timestamp(user.getRtime().getTime()));	
+		ps.setString(4,user.getPhone());
+		if(user.getRegisterTime() != null) {
+			ps.setTimestamp(5,new java.sql.Timestamp(user.getRegisterTime().getTime()));	
 		}else {
 			ps.setTimestamp(5, null);
 		}
+		ps.setDouble(6, 3000);
 		ps.executeUpdate();
 		ps.close();		
 	}
 	
 	/**
-	 * 
+	 * 校验用户名
 	 * @param uname
 	 * @return
 	 * @throws Exception
 	 */
-	public boolean validUserName(String uname) throws Exception {
+	public boolean validUserName(String userName) throws Exception {
 		boolean bRet = false;
 		
-        String sql = "select uname from tuser where uname=?";		
+        String sql = "select user_name from user where user_name=?";		
 		this.openConnection();
 		PreparedStatement ps = this.conn.prepareStatement(sql);
-		ps.setString(1, uname);
+		ps.setString(1, userName);
 		ResultSet rs = ps.executeQuery();
 		while(rs.next()) {
 		  bRet = true;	

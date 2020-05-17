@@ -13,35 +13,25 @@ import com.anglewang.entity.Book;
 import com.anglewang.service.BookService;
 import com.anglewang.util.Log;
 
-/**
- * Servlet implementation class MainSvl
- */
-@WebServlet("/MainSvl")
+@WebServlet("/main")
 public class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public MainServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) 
 			 throws ServletException, IOException {
-		BookService biz = new BookService();
+		BookService bookService = new BookService();
 		try {
-			List<Book> books = biz.getMainBooks();	
+			List<Book> books = bookService.getMainBooks();	
 			request.setAttribute("books", books);
 			request.getRequestDispatcher("/WEB-INF/main/main.jsp").forward(request, response);
 		} catch (Exception e) {
 			Log.logger.error(e.getMessage(),e);
 			request.setAttribute("msg", "网络异常，请和管理员联系");
-			request.getRequestDispatcher("/WEB-INF/error/err.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/error/error.jsp").forward(request, response);
 		}		
 	}
 

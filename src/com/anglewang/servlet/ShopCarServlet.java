@@ -14,38 +14,29 @@ import com.anglewang.entity.Book;
 import com.anglewang.service.BookService;
 import com.anglewang.util.Log;
 
-/**
- * Servlet implementation class ShopCarSvl
- */
-@WebServlet("/user/ShopCarSvl")
+@WebServlet("/user/shop_car")
 public class ShopCarServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public ShopCarServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {	
 		
+		@SuppressWarnings("unchecked")
 		Map<String,Integer> shopCar = (Map<String,Integer>)request.getSession().getAttribute("shopCar");
 		//提取图书的完整信息
-		BookService biz = new BookService();
+		BookService bookService = new BookService();
 		try {
-			List<Book> books = biz.getBookList(shopCar.keySet());
+			List<Book> books = bookService.getBookList(shopCar.keySet());
 			request.setAttribute("books", books);
-			request.getRequestDispatcher("/WEB-INF/main/shopCar.jsp").forward(request, response);		
+			request.getRequestDispatcher("/WEB-INF/main/shop_car.jsp").forward(request, response);		
 		} catch (Exception e) {
 			Log.logger.error(e.getMessage(),e);
 			request.setAttribute("msg", "网络异常，请和管理员联系");
-			request.getRequestDispatcher("/WEB-INF/error/err.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/error/error.jsp").forward(request, response);
 		}	
 		
 	}

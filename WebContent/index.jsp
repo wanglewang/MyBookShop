@@ -1,4 +1,4 @@
 <%@ page language="java" contentType="text/html"  pageEncoding="utf-8"%>
 <% 
-   request.getRequestDispatcher("/MainSvl").forward(request, response);
+   request.getRequestDispatcher("/main").forward(request, response);
 %>

@@ -3,32 +3,21 @@ package com.anglewang.entity;
 import java.io.Serializable;
 import java.util.Date;
 
-public class User implements Serializable{
-	private static final long serialVersionUID = 1L;
-	private String uname;
-	private String pwd;
-	private int role;   //1表示管理员  2 普通用户  3 VIP用户
-	private String tel;
-	private Date rtime;    	
-	private double account;	
+public class User implements Serializable {
 	
-	public double getAccount() {
-		return account;
+	private static final long serialVersionUID = 1L;
+	
+	private String userName;				// 用户名
+	private String pwd;						// 密码
+	private int role; 						// 1表示管理员 2 普通用户 3 VIP用户
+	private String phone;					// 手机号
+	private Date registerTime; 				// 注册时间
+	
+	public String getUserName() {
+		return userName;
 	}
-	public void setAccount(double account) {
-		this.account = account;
-	}
-	public Date getRtime() {
-		return rtime;
-	}
-	public void setRtime(Date rtime) {
-		this.rtime = rtime;
-	}
-	public String getUname() {
-		return uname;
-	}
-	public void setUname(String uname) {
-		this.uname = uname;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	public String getPwd() {
 		return pwd;
@@ -42,14 +31,25 @@ public class User implements Serializable{
 	public void setRole(int role) {
 		this.role = role;
 	}
-	public String getTel() {
-		return tel;
+	public String getPhone() {
+		return phone;
 	}
-	public void setTel(String tel) {
-		this.tel = tel;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
-	
-	
-	
+	public Date getRegisterTime() {
+		return registerTime;
+	}
+	public void setRegisterTime(Date registerTime) {
+		this.registerTime = registerTime;
+	}
+	public double getBalance() {
+		return balance;
+	}
+	public void setBalance(double balance) {
+		this.balance = balance;
+	}
+	private double balance; 				// 账户余额
+
 
 }

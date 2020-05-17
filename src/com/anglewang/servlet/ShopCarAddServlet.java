@@ -9,29 +9,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class ShopCarAddSvl
- */
-@WebServlet("/user/ShopCarAddSvl")
+@WebServlet("/user/shop_car_add")
 public class ShopCarAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public ShopCarAddServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {		
-		String isbn = request.getParameter("isbn");
+		String bookId = request.getParameter("bookId");
 		Map<String,Integer> shopCar = (Map<String,Integer>)request.getSession().getAttribute("shopCar");
-		shopCar.put(isbn, 1);   //默认购买数量为1		
-		request.getRequestDispatcher("/user/ShopCarSvl").forward(request, response);			
+		shopCar.put(bookId, 1);   //默认购买数量为1		
+		request.getRequestDispatcher("/user/shop_car").forward(request, response);			
 	}
 }

@@ -1,9 +1,9 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-String allMoney = request.getParameter("allMoney");
+	String path = request.getContextPath();
+	String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String total = request.getParameter("total");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -11,7 +11,7 @@ String allMoney = request.getParameter("allMoney");
   <head>
     <base href="<%=basePath%>">
     
-    <title>My JSP 'PaySuccess.jsp' starting page</title>
+    <title>付款成功</title>
     
 	<meta http-equiv="pragma" content="no-cache">
 	<meta http-equiv="cache-control" content="no-cache">
@@ -30,9 +30,9 @@ String allMoney = request.getParameter("allMoney");
       	<td height="180"></td>    
       	<td style="color:black;font-size:18px">      	
       	      	   
-      	           付款成功！ 付款人:${user.uname} <br>
-      	           付款金额： <fmt:formatNumber value="<%=allMoney%>" pattern="#.00" type="number"/> 
-      	        账户余额 ： <fmt:formatNumber value="${user.account}" pattern="#.00" type="number"/>             
+      	           付款成功！ 付款人:${user.userName} <br>
+      	           付款金额： <fmt:formatNumber value="<%=total%>" pattern="#.00" type="number"/> 
+      	        账户余额 ： <fmt:formatNumber value="${user.balance}" pattern="#.00" type="number"/>             
       	   <p style="color:red;font-size:30px">
       	          我们会尽快为您进行配送
       	   </p>      	             	  
@@ -41,7 +41,7 @@ String allMoney = request.getParameter("allMoney");
       </tr>  
       <tr><td height="80"></td></tr>    
       <tr>      	
-      		<td colspan="2" align="center"> <a href="<%=basePath%>MainSvl">返回主页</a></td>        	
+      		<td colspan="2" align="center"> <a href="<%=basePath%>main">返回主页</a></td>        	
       </tr>    
     </table>
   </body>

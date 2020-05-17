@@ -9,37 +9,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class ShopCarRemoveSvl
- */
-@WebServlet("/user/ShopCarRemoveSvl")
+@WebServlet("/user/shop_car_remove")
 public class ShopCarRemoveServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public ShopCarRemoveServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String isbn = request.getParameter("isbn");
+		String bookId = request.getParameter("bookId");
 		//从sessin中的购物车移除某本书
+		@SuppressWarnings("unchecked")
 		Map<String,Integer> shopCar = (Map<String,Integer>)request.getSession().getAttribute("shopCar");
-		shopCar.remove(isbn);
-		request.getRequestDispatcher("/user/ShopCarSvl").forward(request, response);
+		shopCar.remove(bookId);
+		request.getRequestDispatcher("/user/shop_car").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

@@ -8,34 +8,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class BookAddSvl
+ * 往购物车中添加图书
+ * @author AngleWang
  */
-@WebServlet("/back/BookAddSvl")
+@WebServlet("/back/book_add")
 public class BookAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public BookAddServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		request.getRequestDispatcher("/WEB-INF/back/bookAdd.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/back/book_add.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

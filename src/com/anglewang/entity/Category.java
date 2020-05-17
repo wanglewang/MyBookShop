@@ -1,20 +1,24 @@
 package com.anglewang.entity;
 
-public class Category {
-	private String cid;
-	private String cname;
-	public String getCid() {
-		return cid;
-	}
-	public void setCid(String cid) {
-		this.cid = cid;
-	}
-	public String getCname() {
-		return cname;
-	}
-	public void setCname(String cname) {
-		this.cname = cname;
-	}
+import java.io.Serializable;
+
+public class Category implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	
+	private String categoryId;//书籍类别ID
+	private String categoryName;//书籍类别民称
 	
+	public String getCategoryId() {
+		return categoryId;
+	}
+	public void setCategoryId(String categoryId) {
+		this.categoryId = categoryId;
+	}
+	public String getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
 }

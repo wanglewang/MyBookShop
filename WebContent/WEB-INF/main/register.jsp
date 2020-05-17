@@ -7,8 +7,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE html>
 <html>
 <head>
+<script src="<%=basePath%>js/jquery.min.js"></script>
 <script type="text/javascript">
-    function tijiao(){
+    function submit(){
     	   var uname = document.getElementById("uname").value;
     	   if(uname == ""){
     		   alert("用户名不能为空!")
@@ -28,67 +29,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	   myform.submit();	       	
     }
     
-    var xmlhttp;      //定义一个全局对象
+  
     
     function validUname(){
-    	var uname = document.getElementById("uname").value;    	
-    	//创建ajax对象
-    	xmlhttp=null;		
-		if (window.XMLHttpRequest){
-  			xmlhttp = new XMLHttpRequest(); // 针对 Mozilla等浏览器的代码：
-  		}
-		else if (window.ActiveXObject){
-  			xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");  // 针对 IE 的代码：
-  		}
-    	//发送ajax请求
-    	if (xmlhttp!=null){
-  			xmlhttp.onreadystatechange = state_Change22;   //注册回调函数
-  			var url = "<%=basePath%>UnameValidSvl?uname=" + uname;
-  			xmlhttp.open("GET",url,true);
-  			xmlhttp.send(null);                          //发送异步请求
-  		}else{
-  			alert("您的浏览器不支持XMLHTTP")
-  		}      	
-    }
-    //在回调函数中接收ajax回应
-    function state_Change22()
-    {
-    	if (xmlhttp.readyState==4){    
-        if (xmlhttp.status==200){
-        	// 回应正确,接收返回值
-        	var span = document.getElementById("unameAlert");
-        	var msg = xmlhttp.responseText;
-        	if(msg == "1"){
-        		span.innerHTML="用户名冲突，重新输入！";
-        	}else if(msg=="0"){
-        		span.innerHTML="用户名可以使用！";
-        	}else if(msg == "-2"){
-        		span.innerHTML="用户名不能为空!";
-        	}else if(msg == "-1"){
-        		span.innerHTML="网络异常，请和管理员联系...!";
-        	}else{
-        		
-        	}  	
-        }else{
-        	alert("出现错误，请检查!");
-        }
-      }
-    }
-
-    
+    	var uname = $('#uname').val();   
+    	var target = "<%=basePath%>UnameValidSvl?uname=" + uname;
+    	$.ajax({
+    		   type: "POST",
+    		   url: target,
+    		   success: function(msg){
+    		       //回调函数的返回处理
+    			    var span = document.getElementById("unameAlert");
+    	        	if(msg == "1"){
+    	        		span.innerHTML="用户名冲突，重新输入！";
+    	        	}else if(msg=="0"){
+    	        		span.innerHTML="用户名可以使用！";
+    	        	}else if(msg == "-2"){
+    	        		span.innerHTML="用户名不能为空!";
+    	        	}else if(msg == "-1"){
+    	        		span.innerHTML="网络异常，请和管理员联系...!";
+    	        	}else{
+    	        		
+    	        	}  	
+    		   }
+    	});
+    }   
 </script>
 </head>
 <body>
 <table align="center" width=70%>
       <tr>
       	<td>
-				<form action="<%=basePath%>RegistSvl" id="myform" method="post" >
+				<form action="<%=basePath%>register" id="myform" method="post" >
 						<table  border="0" cellpadding="0" cellspacing="0" align="center">
 							<tr><td height=100></td></tr>
 							<tr>
 							  <td width="107" height="36">用户名：</td>
-							  <td width="524"><INPUT name="uname" id="uname" type="text" onkeyup="validUname()">
-								<span id="unameAlert" style="color:red;font-size:8px"></span>
+							  <td width="524"><INPUT name="userName" id="userName" type="text" onkeyup="validUname()">
+								<span id="userNameAlert" style="color:red;font-size:8px"></span>
 							  </td>
 							</tr>
 							<tr>
@@ -101,13 +79,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</tr>						
 							<tr>
 							<td width="107" height="36">联系电话：</td>
-							<td width="524"><INPUT name="tel" type="text"></td>
+							<td width="524"><INPUT name="phone" type="text"></td>
 						  </tr>   
 							<tr>
 								<td colspan=2 >
 									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<input type="button" value="提交" onclick="tijiao()" /> &nbsp; 
-									<a href="<%=basePath%>MainSvl">返回</a>
+									<input type="button" value="提交" onclick="submit()" /> &nbsp; 
+									<a href="<%=basePath%>main">返回</a>
 								</td>
 							</tr>
 							<tr><td colspan=2 align="center">

@@ -7,30 +7,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class PayOkSvl
- */
-@WebServlet("/user/PayOkSvl")
+@WebServlet("/user/pay_ok")
 public class PayOkServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public PayOkServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String allMoney = request.getParameter("allMoney");
-		request.setAttribute("allMoney", allMoney);
-		request.getRequestDispatcher("/WEB-INF/main/PayOk.jsp").forward(request, response);
+		String total = request.getParameter("total");
+		request.setAttribute("total", total);
+		request.getRequestDispatcher("/WEB-INF/main/pay_ok.jsp").forward(request, response);
 	}
-
-	
 
 }
